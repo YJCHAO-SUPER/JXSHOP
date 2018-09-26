@@ -11,6 +11,7 @@ namespace models;
 class User extends Base {
 
      function getUserInfo () {
+
          $this->pdo->getRow();
      }
 }

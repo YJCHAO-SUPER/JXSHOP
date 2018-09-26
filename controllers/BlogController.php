@@ -7,16 +7,16 @@
  */
 namespace controllers;
 
-class BlogsController{
+class BlogController{
 
 //    显示商品列表页
     function index(){
-        view('blogs/index',[]);
+        view('blog/index',[]);
     }
 
 //      显示添加的页面
     function create(){
-        view('blogs/create',[]);
+        view('blog/create',[]);
     }
 
 //      处理添加表单
@@ -26,7 +26,7 @@ class BlogsController{
 
 //      显示修改的页面
     function edit(){
-        view('blogs/edit',[]);
+        view('blog/edit',[]);
     }
 
 //      处理修改表单

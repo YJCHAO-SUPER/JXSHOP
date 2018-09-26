@@ -7,7 +7,7 @@
  */
 namespace models;
 
-class Blogs extends Base
+class Blog extends Base
 {
 
 //    添加

@@ -41,17 +41,36 @@ class CodeController
 //        生成视图文件
         $vname = ucfirst($tableName);
         @mkdir(ROOT."\\views\\".$vname,0777);
+
+//        取出这个表中所有的字段信息
+        $sql = "SHOW FULL FIELDS FROM $tableName";
+        $db = \libs\DB::make();
+//        预处理
+        $stmt = $db->prepare($sql);
+//        执行sql
+        $stmt->execute();
+//        取出数据
+        $fields = $stmt->fetchAll(\PDO::FETCH_ASSOC);
+
+//        var_dump($fields);
+
+
 //        加载模板
+//        index.html
         ob_start();
         include ROOT."\\templates\\index.html";
         $str = ob_get_clean();
         file_put_contents(ROOT."\\views\\".$vname."/index.html",$str);
 
+
+//        create.html
         ob_start();
         include ROOT."\\templates\\create.html";
         $str = ob_get_clean();
         file_put_contents(ROOT."\\views\\".$vname."/create.html",$str);
 
+
+//        edit.html
         ob_start();
         include ROOT."\\templates\\edit.html";
         $str = ob_get_clean();
