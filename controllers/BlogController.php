@@ -7,6 +7,8 @@
  */
 namespace controllers;
 
+use models\Blog;
+
 class BlogController{
 
 //    显示商品列表页
@@ -22,6 +24,9 @@ class BlogController{
 //      处理添加表单
     function insert(){
 
+        $blog = new Blog();
+        $blog->fill($_POST);
+        $blog->insert();
     }
 
 //      显示修改的页面

@@ -7,7 +7,7 @@
  */
 namespace models;
 
-class Category extends Base
+class Category extends Model
 {
 
 //    添加

@@ -8,10 +8,10 @@
 namespace models;
 
 
-class User extends Base {
+class User extends Model {
 
      function getUserInfo () {
 
-         $this->pdo->getRow();
+
      }
 }

@@ -7,12 +7,17 @@
  */
 namespace controllers;
 
+use models\<?=$mname?>
+
 class <?=$cname?>
 {
 
 //    显示商品列表页
     function index(){
-        view('<?=$tableName?>/index',[]);
+
+        $model = new <?=$mname?>;
+        $data = $model->findAll();
+        view('<?=$tableName?>/index',$data);
     }
 
 //      显示添加的页面

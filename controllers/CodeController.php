@@ -15,6 +15,28 @@ class CodeController
 //        接收参数 (生成代码的表名)
         $tableName = $_GET['name'];
 
+//        取出这个表中所有的字段信息
+        $sql = "SHOW FULL FIELDS FROM $tableName";
+        $db = \libs\DB::make();
+//        预处理
+        $stmt = $db->prepare($sql);
+//        执行sql
+        $stmt->execute();
+//        取出数据
+        $fields = $stmt->fetchAll(\PDO::FETCH_ASSOC);
+//        var_dump($fields);
+
+
+//          收集所有字段的白名单
+        $fillable = [];
+        foreach ($fields as $v){
+            if($v['Field'] == 'id' || $v['Field'] == 'created_at'){
+                continue;
+            }
+            $fillable[] = $v['Field'];
+        }
+        $fillable = implode("','",$fillable);
+
 
 //        生成控制器 拼出控制器名字
         $cname = ucfirst($tableName)."Controller";
@@ -42,19 +64,6 @@ class CodeController
         $vname = ucfirst($tableName);
         @mkdir(ROOT."\\views\\".$vname,0777);
 
-//        取出这个表中所有的字段信息
-        $sql = "SHOW FULL FIELDS FROM $tableName";
-        $db = \libs\DB::make();
-//        预处理
-        $stmt = $db->prepare($sql);
-//        执行sql
-        $stmt->execute();
-//        取出数据
-        $fields = $stmt->fetchAll(\PDO::FETCH_ASSOC);
-
-//        var_dump($fields);
-
-
 //        加载模板
 //        index.html
         ob_start();
@@ -62,13 +71,11 @@ class CodeController
         $str = ob_get_clean();
         file_put_contents(ROOT."\\views\\".$vname."/index.html",$str);
 
-
 //        create.html
         ob_start();
         include ROOT."\\templates\\create.html";
         $str = ob_get_clean();
         file_put_contents(ROOT."\\views\\".$vname."/create.html",$str);
-
 
 //        edit.html
         ob_start();

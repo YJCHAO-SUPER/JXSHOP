@@ -7,27 +7,13 @@
  */
 namespace models;
 
-class Blog extends Base
+class Blog extends Model
 {
 
-//    添加
-    function insert(){
+//    设置这个模型对应的表
+    protected $table = 'blog';
+//    设置允许接收的字段
+    protected $fillable = ['title','content','is_show'];
 
-    }
-
-//    修改
-    function update(){
-
-    }
-
-//    删除
-    function delete(){
-
-    }
-
-//    查询
-    function search(){
-
-    }
 
 }
