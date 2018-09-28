@@ -27,22 +27,34 @@ class <?=$cname?>
 
 //      处理添加表单
     function insert(){
-
+        $model = new <?=$mname?>;
+        $model = $model->fill($_POST);
+        $model->insert();
+        redirect('<?=$tableName?>/index');
     }
 
 //      显示修改的页面
     function edit(){
-        view('<?=$tableName?>/edit',[]);
+        $model = new <?=$mname?>
+        $data = $model->findOne($_GET['id']);
+        view('<?=$tableName?>/edit',[
+            'data'=>$data
+        ]);
     }
 
 //      处理修改表单
     function update(){
-
+        $model = new <?=$mname?>;
+        $model = $model->fill($_POST);
+        $model->insert($_GET['id']);
+        redirect('<?=$tableName?>/index');
     }
 
 //    处理删除表单
     function delete(){
-
+        $model = new <?=$mname?>
+        $model->delete($_GET['id']);
+        redirect('<?=$tableName?>/index');
     }
 
 

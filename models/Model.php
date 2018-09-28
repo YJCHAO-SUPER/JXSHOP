@@ -24,8 +24,17 @@ class Model
 //    表单的数据，值由控制器设置
     protected $data;
 
+//    钩子函数
+    protected function _before_write(){}
+    protected function _after_write(){}
+    protected function _before_delete(){}
+    protected function _after_delete(){}
+
 //    添加
     public function insert(){
+
+        $this->_before_write();
+
 //        echo 123;
 //    var_dump($this->data);
 
@@ -49,6 +58,7 @@ class Model
         $stmt = $this->pdo->prepare($sql);
         $stmt->execute($values);
 
+        $this->_after_write();
     }
 
 //    接收表单中的数据
@@ -65,6 +75,8 @@ class Model
 
 //    修改
     public function update($id){
+
+        $this->_before_write();
 
         $set = [];
         $token = [];
@@ -83,16 +95,18 @@ class Model
         $stmt = $this->pdo->prepare($sql);
         $stmt->execute($values);
 
+        $this->_after_write();
+
     }
 
 //    删除
     public function delete($id)
     {
-
+        $this->_before_delete();
 //        删除sql语句
         $stmt = $this->pdo->prepare("delete from {$this->table} WHERE id=?");
         $stmt->execute([$id]);
-
+        $this->_after_delete();
     }
 
 //    获取所有数据
