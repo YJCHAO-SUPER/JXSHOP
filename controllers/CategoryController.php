@@ -1,44 +1,55 @@
-<?php
-/**
- * Created by PhpStorm.
- * User: ThinkPad
- * Date: 2018/9/25
- * Time: 16:53
- */
-namespace controllers;
+<?php\r\nnamespace controllers;
 
-class CategoryController
-{
+use models\;
 
-//    显示商品列表页
-    function index(){
-        view('Category/index',[]);
+class CategoryController{
+    // 列表页
+    public function index()
+    {
+        $model = new ;
+        $data = $model->findAll();
+        view('category/index', $data);
     }
 
-//      显示添加的页面
-    function create(){
-        view('Category/create',[]);
+    // 显示添加的表单
+    public function create()
+    {
+        view('category/create');
     }
 
-//      处理添加表单
-    function insert(){
-
+    // 处理添加表单
+    public function insert()
+    {
+        $model = new ;
+        $model->fill($_POST);
+        $model->insert();
+        redirect('/category/index');
     }
 
-//      显示修改的页面
-    function edit(){
-        view('Category/edit',[]);
+    // 显示修改的表单
+    public function edit()
+    {
+        $model = new ;
+        $data=$model->findOne($_GET['id']);
+        view('category/edit', [
+        'data' => $data,
+        ]);
     }
 
-//      处理修改表单
-    function update(){
-
+    // 修改表单的方法
+    public function update()
+    {
+        $model = new ;
+        $model->fill($_POST);
+        $model->update($_GET['id']);
+        redirect('/category/index');
     }
 
-//    处理删除表单
-    function delete(){
-
+    // 删除
+    public function delete()
+    {
+        $model = new ;
+        $model->delete($_GET['id']);
+        redirect('/category/index');
     }
-
-
 }
